@@ -1,6 +1,8 @@
 #include <Windows.h>
 #include <iostream>
 #include <d3d9.h>
+#include <d3dx9.h>
+#include <mmsystem.h>
 using namespace std;
 #pragma comment(linker, "/entry:WinMainCRTStartup")
 #pragma comment(lib,"d3d9.lib")
@@ -47,7 +49,7 @@ void RenderingDirect3D()
 	pDirect3DDevice->SetStreamSource(0, pBufferVershin, 0, sizeof(CUSTOMVERTEX));
 	pDirect3DDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 
-	pDirect3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+	pDirect3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 	pDirect3DDevice->EndScene();
 	pDirect3DDevice->Present(NULL, NULL, NULL, NULL);
 }
@@ -67,8 +69,12 @@ HRESULT InitialBufferVershin()
 	{ 300.0f, 300.0f, 0.5f, 1.0f, 0x00000fff },
 	 { 150.0f, 300.0f, 0.5f, 1.0f, 0x00000fff },
 	{150.0f, 150.0f, 0.5f, 1.0f, 0x00000fff },
+
+	{ 150.0f, 150.0f, 0.5f, 1.0f, 0x00000fff },
+	 { 300.0f, 150.0f, 0.5f, 1.0f, 0x00000fff },
+	{300.0f, 300.0f, 0.5f, 1.0f, 0x00000fff },
 	};
-	if (FAILED(pDirect3DDevice->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT, &pBufferVershin, NULL)))
+	if (FAILED(pDirect3DDevice->CreateVertexBuffer(6 * sizeof(CUSTOMVERTEX), 0, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT, &pBufferVershin, NULL)))
 		return E_FAIL;
 	VOID* pBV;
 	if (FAILED(pBufferVershin->Lock(0, sizeof(Vershin), (void**)&pBV, 0)))
